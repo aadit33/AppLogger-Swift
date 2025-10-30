@@ -30,31 +30,6 @@ You can configure `AppLogger` with various providers and a desired log level usi
 ```swift
 import AppLogger
 
-// Create an OSLog provider
-let osLogProvider = OSLogProvider()
-
-// Create a JSON file storage provider
-let fileLogProvider = JSONFileLogStorageProvider()
-
-// Build the logger
-let logger = AppLoggerBuilder()
-    .setLogLevel(.debug) // Set the minimum log level
-    .enable(provider: osLogProvider) // Enable OSLog
-    .enable(provider: fileLogProvider) // Enable JSON file logging
-    .build() // The build() method would typically be on a singleton instance of AppLogger.
-             // You'll need to define how AppLogger itself is initialized and accessed.
-             // For example, you might have a static shared instance.
-```
-
-### 2. Logging Messages
-
-Once the logger is configured, you can log messages at different levels.
-
-Assuming you have a main `AppLogger` class with static access, e.g.:
-
-```swift
-import CCIAppLogger
-
 @main
 struct MyApp: App {
     init() {
@@ -68,12 +43,13 @@ struct MyApp: App {
 
     var body: some Scene { ... }
 }
-
-AppLogger.shared.debug("Home screen loaded")
-AppLogger.shared.error("API failed", metadata: ["status": 404])
 ```
 
-You would then log like this:
+### 2. Logging Messages
+
+Once the logger is configured, you can log messages at different levels.
+
+Assuming you have a main `AppLogger` class with static access
 
 ```swift
 // Log a debug message
