@@ -33,35 +33,44 @@ public final class AppLogger {
 
     public func debug(_ message: String,
                       metadata: [String: String]? = nil,
+                      screen: String? = nil,
+                      extras: [String: String]? = nil,
                       file: String = #file,
                       function: String = #function,
                       line: Int = #line) {
-        log(level: .debug, message: message, metadata: metadata, file: file, function: function, line: line)
+        log(level: .debug, message: message, metadata: metadata, screen: screen, extras: extras, file: file, function: function, line: line)
     }
 
     public func info(_ message: String,
                      metadata: [String: String]? = nil,
                      apiResponse: APIResponseLog? = nil,
+                     screen: String? = nil,
+                     extras: [String: String]? = nil,
                      file: String = #file,
                      function: String = #function,
                      line: Int = #line) {
-        log(level: .info, message: message, metadata: metadata, apiResponse: apiResponse, file: file, function: function, line: line)
+        log(level: .info, message: message, metadata: metadata, apiResponse: apiResponse, screen: screen, extras: extras, file: file, function: function, line: line)
     }
 
     public func warning(_ message: String,
                         metadata: [String: String]? = nil,
+                        screen: String? = nil,
+                        extras: [String: String]? = nil,
                         file: String = #file,
                         function: String = #function,
                         line: Int = #line) {
-        log(level: .warning, message: message, metadata: metadata, file: file, function: function, line: line)
+        log(level: .warning, message: message, metadata: metadata, screen: screen, extras: extras, file: file, function: function, line: line)
     }
 
     public func error(_ message: String,
                       metadata: [String: String]? = nil,
+                      screen: String? = nil,
+                      extras: [String: String]? = nil,
+                      error: Error? = nil,
                       file: String = #file,
                       function: String = #function,
                       line: Int = #line) {
-        log(level: .error, message: message, metadata: metadata, file: file, function: function, line: line)
+        log(level: .error, message: message, metadata: metadata, screen: screen, extras: extras, error: error, file: file, function: function, line: line)
     }
 
     // Core
@@ -69,6 +78,9 @@ public final class AppLogger {
                      message: String,
                      metadata: [String: String]? = nil,
                      apiResponse: APIResponseLog? = nil,
+                     screen: String? = nil,
+                     extras: [String: String]? = nil,
+                     error: Error? = nil,
                      file: String,
                      function: String,
                      line: Int) {
@@ -77,7 +89,7 @@ public final class AppLogger {
         queue.async {
             guard level >= self.level else { return }
 
-            let entry = AppLogEntry(level: level, message: message, metadata: metadata, file: file, function: function, line: line, apiResponse: apiResponse)
+            let entry = AppLogEntry(level: level, message: message, metadata: metadata, file: file, function: function, line: line, screen: screen, extras: extras, apiResponse: apiResponse, error: error)
 
             // Broadcast to providers
             for provider in self.providers where provider.isEnabled {

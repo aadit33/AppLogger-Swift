@@ -24,4 +24,11 @@ public final class AppLoggerBuilder {
         providers.append(provider)
         return self
     }
+
+    @discardableResult
+    public func addSentry(dsn: String, environment: String, allowedScreens: [String]? = nil) -> Self {
+        let sentryProvider = SentryProvider(dsn: dsn, environment: environment, allowedScreens: allowedScreens)
+        providers.append(sentryProvider)
+        return self
+    }
 }

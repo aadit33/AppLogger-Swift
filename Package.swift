@@ -12,11 +12,17 @@ let package = Package(
             name: "AppLogger",
             targets: ["AppLogger"]),
     ],
+    dependencies: [
+        .package(url: "https://github.com/getsentry/sentry-cocoa.git", from: "8.0.0"),
+    ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "AppLogger"),
+            name: "AppLogger",
+            dependencies: [
+                .product(name: "Sentry", package: "sentry-cocoa")
+            ]),
         .testTarget(
             name: "AppLoggerTests",
             dependencies: ["AppLogger"]
