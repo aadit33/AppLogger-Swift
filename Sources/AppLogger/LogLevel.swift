@@ -18,4 +18,19 @@ public enum LogLevel: Int, Comparable, Codable {
     public static func < (lhs: LogLevel, rhs: LogLevel) -> Bool {
         return lhs.rawValue < rhs.rawValue
     }
+    
+    func name() -> String {
+        switch self {
+        case .debug:
+            return "Debug"
+        case .info:
+            return "Info"
+        case .warning:
+            return "Warning"
+        case .error:
+            return "Error"
+        case .none:
+            return "None"
+        }
+    }
 }

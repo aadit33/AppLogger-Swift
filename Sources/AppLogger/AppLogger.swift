@@ -27,6 +27,22 @@ public final class AppLogger {
             instance.level = builder.logLevel
             instance.providers = builder.providers
         }
+        
+        if builder.isSystemEventMonitoringEnabled {
+            SystemEventMonitor.shared.startMonitoring()
+        }
+    }
+    
+    // MARK: - Access
+    
+    /// Retrieve a registered provider by its type.
+    /// Useful for accessing provider-specific features (e.g. retrieving log files).
+    public func provider<T: LogProvider>(ofType type: T.Type) -> T? {
+        var result: T?
+        queue.sync {
+            result = providers.first(where: { $0 is T }) as? T
+        }
+        return result
     }
 
     // MARK: - Logging API

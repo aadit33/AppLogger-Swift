@@ -16,6 +16,7 @@ class ViewController: UIViewController {
             builder.setLogLevel(.debug)
             
             builder.enable(provider: OSLogProvider())
+            builder.addTextFileStorage(fileName: "my_logs.txt")
             
             // Add Sentry provider
              builder.addSentry(
@@ -23,6 +24,13 @@ class ViewController: UIViewController {
                  environment: "production",
                  allowedScreens: ["Home", "Profile"] // Only logs from these screens will be sent to Sentry
              )
+            
+            builder.enable(provider: JSONFileLogStorageProvider())
+            
+            // Add Text File Storage
+            
+            // Enable System Event Monitoring (Battery, Network)
+            builder.enableSystemEventMonitoring()
         }
         
         AppLogger.shared.debug("screen loaded")
