@@ -45,4 +45,11 @@ public final class AppLoggerBuilder {
         self.isSystemEventMonitoringEnabled = true
         return self
     }
+
+    @discardableResult
+    public func addCrashlytics(allowedScreens: [String]? = nil) -> Self {
+        let crashlyticsProvider = CrashlyticsProvider(allowedScreens: allowedScreens)
+        providers.append(crashlyticsProvider)
+        return self
+    }
 }

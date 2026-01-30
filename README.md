@@ -45,7 +45,38 @@ struct MyApp: App {
 }
 ```
 
-### 2. Logging Messages
+```
+
+### 3. Firebase Crashlytics Integration
+
+To use **Firebase Crashlytics**, ensure you have added the `GoogleService-Info.plist` to your main application bundle (exclude it from the package sources).
+
+#### Setup
+1.  **Add the Dependency**: Ensure `AppLogger` is added to your project.
+2.  **Add `GoogleService-Info.plist`**: Download this from the Firebase Console and add it to your app target (not the `AppLogger` package).
+3.  **Add Run Script**: Add a "Run Script" phase in your app's Build Phases to upload dSYMs:
+    ```bash
+    "${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run"
+    ```
+
+#### Configuration
+
+```swift
+AppLogger.configure { builder in
+    // ... other providers
+    
+    // Add Crashlytics Provider
+    builder.addCrashlytics()
+    
+    // OR with allowed screens
+    // builder.addCrashlytics(allowedScreens: ["Home", "Settings"])
+}
+```
+
+**Note**: `AppLogger/CrashlyticsProvider` automatically calls `FirebaseApp.configure()` if it hasn't been called yet. Ensure you do not call it multiple times in your application code if using this provider.
+
+### 4. Logging Messages
+
 
 Once the logger is configured, you can log messages at different levels.
 

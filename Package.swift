@@ -14,6 +14,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/getsentry/sentry-cocoa.git", from: "8.0.0"),
+        .package(url: "https://github.com/firebase/firebase-ios-sdk.git", from: "10.0.0"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -21,7 +22,8 @@ let package = Package(
         .target(
             name: "AppLogger",
             dependencies: [
-                .product(name: "Sentry", package: "sentry-cocoa")
+                .product(name: "Sentry", package: "sentry-cocoa"),
+                .product(name: "FirebaseCrashlytics", package: "firebase-ios-sdk")
             ]),
         .testTarget(
             name: "AppLoggerTests",

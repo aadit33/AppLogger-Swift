@@ -19,11 +19,11 @@ class ViewController: UIViewController {
             builder.addTextFileStorage(fileName: "my_logs.txt")
             
             // Add Sentry provider
-             builder.addSentry(
-                 dsn: "https://6fd40efa504cf02741f53f4a2b5e4911@o4510418135416832.ingest.us.sentry.io/4510418138824704",
-                 environment: "production",
-                 allowedScreens: ["Home", "Profile"] // Only logs from these screens will be sent to Sentry
-             )
+            builder.addSentry(
+                dsn: "https://6fd40efa504cf02741f53f4a2b5e4911@o4510418135416832.ingest.us.sentry.io/4510418138824704",
+                environment: "production",
+                allowedScreens: ["Home", "Profile"] // Only logs from these screens will be sent to Sentry
+            )
             
             builder.enable(provider: JSONFileLogStorageProvider())
             
@@ -44,5 +44,8 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-   
+    @IBAction func didTappedCrashlytics(_ sender: Any) {
+        let numbers = [0]
+        let _ = numbers[1]
+    }
 }
